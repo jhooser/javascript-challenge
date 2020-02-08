@@ -5,6 +5,7 @@ var button = d3.select("#filter-btn");
 
 function init() {
   var tbody = d3.select("tbody");
+  tbody.html("");
   tableData.forEach((sighting) => {
     var row = tbody.append("tr");
     Object.entries(sighting).forEach(([key, value]) => {
@@ -20,15 +21,15 @@ button.on("click", function() {
   
   // Select the input element and get the raw HTML node
   var inputElement = d3.select("#datetime");
-  tbody.html("")
+  tbody.html("");
   
   // Get the value property of the input element
   var inputValue = inputElement.property("value");
-
-  console.log(inputValue);
-
+  // If input is blank, run the initial document
+  if (inputValue ==""){init()}
+  //Otherwise, filter with the data
+  else{
   var filteredData = tableData.filter(ufo => ufo.datetime === inputValue);
-  console.log(filteredData);
 
   filteredData.forEach((sighting) => {
     var row = tbody.append("tr");
@@ -37,6 +38,6 @@ button.on("click", function() {
       cell.text(value);
     });
   });
-});
+}});
 
 init();
